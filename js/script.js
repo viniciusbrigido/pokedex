@@ -17,15 +17,20 @@ const buscaPokemon = async (pokemon) => {
 }
 
 const mostraPokemon = async (pokemon) => {
+    input.value = '';
     pokemonData.innerHTML = 'Carregando';
     const data = await buscaPokemon(pokemon);
 
     if (data) {
         idBuscaPokemon = data.id;
-        pokemonImage.style.display = 'block';
         pokemonData.innerHTML = `${data.id} - ${data.name}`;
-        pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
-        input.value = '';
+        const image = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
+        if (image) {
+            pokemonImage.style.display = 'block';
+            pokemonImage.src = image;
+        } else {
+            pokemonImage.style.display = 'none';
+        }
     } else {
         pokemonData.innerHTML = 'Não encontrado';
         pokemonImage.style.display = 'none';
