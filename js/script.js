@@ -1,5 +1,4 @@
-const pokemonId = document.querySelector('.pokemon_id')
-const pokemonName = document.querySelector('.pokemon_name')
+const pokemonData = document.querySelector('.pokemon_data')
 const pokemonImage = document.querySelector('.pokemon_image')
 
 const form = document.querySelector('.form')
@@ -13,25 +12,22 @@ const buscaPokemon = async (pokemon) => {
     const APIResponse = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon}`);
 
     if (APIResponse.status === 200) {
-        const data = await APIResponse.json();
-        return data;
+        return await APIResponse.json();
     }
 }
 
 const mostraPokemon = async (pokemon) => {
-    pokemonName.innerHTML = 'Carregando';
+    pokemonData.innerHTML = 'Carregando';
     const data = await buscaPokemon(pokemon);
 
     if (data) {
-        pokemonImage.style.display = 'block';
         idBuscaPokemon = data.id;
-        pokemonId.innerHTML = data.id;
-        pokemonName.innerHTML = data.name;
+        pokemonImage.style.display = 'block';
+        pokemonData.innerHTML = `${data.id} - ${data.name}`;
         pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
         input.value = '';
     } else {
-        pokemonId.innerHTML = '';
-        pokemonName.innerHTML = 'Não encontrado';
+        pokemonData.innerHTML = 'Não encontrado';
         pokemonImage.style.display = 'none';
     }
 }
