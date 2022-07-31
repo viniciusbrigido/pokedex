@@ -39,7 +39,7 @@ const mostraPokemon = async (pokemon) => {
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    mostraPokemon(input.value).toLowerCase();
+    mostraPokemon(input.value.toLowerCase());
 });
 
 btnPrev.addEventListener('click', () => {
